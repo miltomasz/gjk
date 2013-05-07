@@ -1,0 +1,160 @@
+//     var lat;
+    //     var lng;
+    //     var markers = [];
+    //     var map;
+
+    //     jQuery(window).ready(function() {
+
+    //         jQuery("#btnInit").click(initiate_geolocation);
+
+
+    //         $( "#dialog-form" ).dialog({
+    //               autoOpen: false,
+    //               height: 300,
+    //               width: 350,
+    //               modal: true,
+    //               buttons: {
+    //                 "Dodaj" : function() {
+    //                     var form = $(this);
+    //                     var transportType = form.find('select[name="mean"]').val();
+    //                     var number = form.find('select[name="numbers"]').val();
+
+    //                     $.post('/events', { "event" : { "transport_type" : transportType, "lat" : lat, "lng" : lng }}, function(json) {
+    //                         $.getJSON('/events', function(json) {
+    //                           var event_lat = json[0].event.lat;
+    //                           var event_lng = json[0].event.lng;
+
+    //                           alert("Lat: " + event_lat + ", lng: " + event_lng);
+
+    //                           var latlng = new google.maps.LatLng(event_lat, event_lng);
+    //                           clearOverlays();
+    //                           addMarker(latlng, "Kanar!");
+    //                       });
+
+    //                     });
+
+    //                     $(this).dialog( "close" );
+
+    //                 },
+    //                 "Powrot" : function() {
+    //                     $(this).dialog( "close" );
+    //                 }
+    //               }
+    //         });
+             
+    //         $( "#create-user" ).click(function() {
+    //           $( "#dialog-form" ).dialog( "open" );
+    //         });
+
+    //         $("#mean").change(function(){
+    //             var meanOption = $(this).val();
+    //             var numbers = []
+
+    //             if(meanOption == 'bus') {
+    //                 numbers = [519, 116, 422, 521, 131]
+    //             }
+
+    //             if(meanOption == 'tram') {
+    //                 numbers = [12, 33, 17, 18, 22, 25]
+    //             }
+
+    //             var options = '';
+    //             for(var i = 0; i < numbers.length; i++) {
+    //                 options += '<option value="' + numbers[i] + '">' + numbers[i] + '</option>';
+    //             }
+
+    //             $("#numbers").html(options);
+    //         });
+
+    //     });
+
+    //     function addMarker(location, title) {
+    //       marker = new google.maps.Marker({
+    //                               position: location,
+    //                               map: map,
+    //                               title: title
+    //                             });
+    //       markers.push(marker);
+    //     }
+
+    //     function clearOverlays() {
+    //       if (markers) {
+    //         for (i in markers) {
+    //           markers[i].setMap(null);
+    //         }
+    //       }
+    //     }
+
+    //     function initiate_geolocation() {
+    //       alert("Starting geo...");
+    //         // detectBrowser();
+    //         navigator.geolocation.getCurrentPosition(handle_success, handle_errors);
+    //     }
+
+    //     function handle_errors(error) {
+    //         switch(error.code)
+    //         {
+    //             case error.PERMISSION_DENIED: alert("user did not share geolocation data");
+    //             break;
+    //             case error.POSITION_UNAVAILABLE: alert("could not detect current position");
+    //             break;
+    //             case error.TIMEOUT: alert("retrieving position timed out");
+    //             break;
+    //             default: alert("unknown error");
+    //             break;
+    //         }
+    //     }
+
+    //     function handle_geolocation_query(position) {
+    //         var image_url = "http://maps.google.com/maps/api/staticmap?sensor=false&center=" + position.coords.latitude + "," + position.coords.longitude + "&zoom=14&size=300x400&markers=color:blue|label:S|" +
+    //                         position.coords.latitude + ',' + position.coords.longitude;
+                            
+    //         jQuery("#map").remove();
+
+    //         jQuery(document.body).append(
+    //             jQuery(document.createElement("img")).attr("src", image_url).attr('id','map')
+    //         );
+    //     }
+
+    //     function detectBrowser() {
+    //       var useragent = navigator.userAgent;
+    //       var mapdivMap = document.getElementById("mapcanvas");
+
+    //       if (useragent.indexOf('iPhone') != -1 || useragent.indexOf('Android') != -1 ) {
+    //         mapdivMap.style.width = '100%';
+    //         mapdivMap.style.height = '100%';
+    //       } else {
+    //         mapdivMap.style.width = '600px';
+    //         mapdivMap.style.height = '800px';
+    //       }
+    //     };
+
+        
+
+    //     function handle_success(position) {
+    //       // var mapcanvas = document.createElement('div');
+    //       // mapcanvas.id = 'mapcanvas';
+    //       // mapcanvas.style.height = "100%";
+    //       // mapcanvas.style.width = "100%";
+            
+    //       // document.querySelector('div').appendChild(mapcanvas);
+
+    //       alert("Success...");
+
+    //       lat = position.coords.latitude;
+    //       lng = position.coords.longitude;
+          
+    //       var latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+
+    //       var myOptions = {
+    //         zoom: 15,
+    //         center: latlng,
+    //         mapTypeControl: false,
+    //         navigationControlOptions: {style: google.maps.NavigationControlStyle.SMALL},
+    //         mapTypeId: google.maps.MapTypeId.ROADMAP
+    //       };
+
+    //       map = new google.maps.Map(document.getElementById("mapcanvas"), myOptions);
+
+    //       addMarker(latlng, "You are here! (at least within a " + position.coords.accuracy+" meter radius)");
+    //     }
