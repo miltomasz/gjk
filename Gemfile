@@ -7,7 +7,9 @@ gem 'rails', '3.2.12'
 
 gem 'rails-api'
 
-gem 'sqlite3'
+group :test do
+  gem 'sqlite3'
+end
 
 gem 'geokit'
 gem 'geokit-rails3'
