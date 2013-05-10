@@ -2,21 +2,15 @@ source 'https://rubygems.org'
 
 gem 'rails', '3.2.12'
 
-# Bundle edge Rails instead:
-# gem 'rails', :git => 'git://github.com/rails/rails.git'
-
 gem 'rails-api'
+gem 'geokit'
+gem 'geokit-rails3'
+gem 'pg'
+gem 'newrelic_rpm'
 
 group :test do
   gem 'sqlite3'
 end
-
-gem 'geokit'
-gem 'geokit-rails3'
-
-gem 'pg'
-
-gem 'newrelic_rpm'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
