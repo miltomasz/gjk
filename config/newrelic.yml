@@ -42,7 +42,7 @@ common: &default_settings
   #       - Ajax Service
   #       - All Services
   #
-  app_name: My Application
+  app_name: Antykanar - core
 
   # When "true", the agent collects performance data about your
   # application and reports this data to the New Relic service at
@@ -214,9 +214,11 @@ test:
 # testing shows an average performance impact of < 5 ms per
 # transaction, you can leave this on all the time without
 # incurring any user-visible performance degradation.
+<%unless ENV["cf6673af08425a037a8bc94f96f43d82ca06354a"].nil? %>
 production:
   <<: *default_settings
   monitor_mode: true
+<%end%>
 
 # Many applications have a staging environment which behaves
 # identically to production. Support for that environment is provided
