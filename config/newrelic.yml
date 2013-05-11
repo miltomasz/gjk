@@ -1,4 +1,3 @@
-<% unless ENV["cf6673af08425a037a8bc94f96f43d82ca06354a"].nil? %>
 #
 # This file configures the New Relic Agent.  New Relic monitors
 # Ruby, Java, .NET, PHP, and Python applications with deep visibility and low overhead.
@@ -227,4 +226,4 @@ staging:
   monitor_mode: true
   # app_name: My Application (Staging)
 
-<% end %>
+
