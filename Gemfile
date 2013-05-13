@@ -6,7 +6,7 @@ gem 'rails-api'
 gem 'geokit'
 gem 'geokit-rails3'
 gem 'pg'
-# gem 'newrelic_rpm'
+gem 'newrelic_rpm', "~> 3.5.5.38"
 
 group :test do
   gem 'sqlite3'
