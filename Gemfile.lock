@@ -46,7 +46,6 @@ GEM
       treetop (~> 1.4.8)
     mime-types (1.22)
     multi_json (1.7.2)
-    newrelic_rpm (3.6.2.96)
     pg (0.13.2)
     polyglot (0.3.3)
     rack (1.4.5)
@@ -97,7 +96,6 @@ PLATFORMS
 DEPENDENCIES
   geokit
   geokit-rails3
-  newrelic_rpm
   pg
   rails (= 3.2.12)
   rails-api
