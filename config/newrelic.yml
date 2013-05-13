@@ -73,7 +73,9 @@ common: &default_settings
   # The encryption required by SSL introduces a nominal amount of CPU overhead,
   # which is performed asynchronously in a background thread.  If you'd prefer
   # to send your metrics over http uncomment the following line.
-  # ssl: false
+  ssl: false
+
+  apdex_t: 0.5
 
   #============================== Browser Monitoring ===============================
   # New Relic Real User Monitoring gives you insight into the performance real users are
@@ -224,6 +226,6 @@ production:
 staging:
   <<: *default_settings
   monitor_mode: true
-  # app_name: My Application (Staging)
+  app_name: Antykanar - core
 
 
