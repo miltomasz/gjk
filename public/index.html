@@ -84,6 +84,7 @@
 
 
           $("#refresh_btn").click(function() {
+            alert("Dupa");
             loadData();
             location.reload(true);
           });
@@ -117,13 +118,17 @@
                   options += '<option value="' + numbers[i] + '">' + numbers[i] + '</option>';
               }
               
-              // $("#numbers-div").show();
               $("#numbers").html(options).selectmenu('refresh', true);;
           });
 
-          // $("#numbers").change(function() {
-          //     $("#add-inspection-div").show();
-          // });
+          $("#home").bind("load",function() {
+            alert("total Type") ;
+           });
+
+          $('#home').on('pageshow', function (event, ui) {
+            alert("Chuj") ;
+          });
+ 
 
           $("#add-inspection").click(function() {
             var form = $(this).closest("form");
@@ -150,11 +155,7 @@
                 $('#map_canvas').gmap('addMarker', {'position': clientPosition, 'bounds': true});
 
                 $.getJSON("/events?lat=" + lat + "&lng=" + lng, function(json) {
-                    var event_lat = json[0].event.lat;
-                    var event_lng = json[0].event.lng;
-
                     $.each(json, function(i, event) {
-                      console.log("----" + json[i].event.lat)
                       var imageType = selectImage(json[i].event.transport_type);
 
                       $('#map_canvas').gmap('addMarker', { 
@@ -235,7 +236,8 @@
 
       <div data-role="header">
           <h2>Antykanar</h2>
-          <a href="#" id="refresh_btn" data-icon="refresh" class="ui-btn-left"><h1></h1></a>
+          <a href="#" id="refresh_btn" data-icon="refresh" class="ui-btn-left" data-iconpos="notext"></a>
+          <a href="#notes" id="notes_btn" data-icon="edit" class="ui-btn-right" data-iconpos="notext"></a>
       </div>
       <div data-role="content" style="width:100%; height:100%; padding: 0px;" >
           <form>
@@ -265,5 +267,23 @@
          </div> 
       </div>
     </div>
+
+    <!-- Start of second page -->
+    <div data-role="page" id="notes" style="width:100%; height:100%;" >
+
+      <div data-role="header">
+          <h2>Antykanar</h2>
+          <a href="#home" id="back_btn" data-icon="back" class="ui-btn-left" data-iconpos="notext" ></a>
+      </div>
+
+      <div data-role="content">
+        <form action="/notes/create" method="post" data-ajax="false">
+            <label for="textarea-1">Aplikacja Antykanar jest w wersji beta! Czekamy na uwagi:</label>
+            <textarea cols="40" rows="30" name="note[content]" id="textarea-1"></textarea>
+            <input type="submit" value="Wyślij" >
+        </form>
+      </div><!-- /content -->
+
+    </div><!-- /page -->
   </body>
 </html>

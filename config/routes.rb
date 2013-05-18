@@ -1,4 +1,6 @@
 Gjk::Application.routes.draw do
+  post "notes/create"
+
   root :to => "event#index"
   resources :events, except: [:new, :edit]
 
