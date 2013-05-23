@@ -7,6 +7,7 @@
 
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
     <link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.css" />
+    <link href='http://fonts.googleapis.com/css?family=Love+Ya+Like+A+Sister' rel='stylesheet' type='text/css'>
     <style type="text/css">
       .show-hide {
         display:none;
@@ -48,6 +49,10 @@
           border-right-width: 1px;
           margin: -2px 2px 2px 2px;
       }
+
+      h2 {
+        font-family: 'Love Ya Like A Sister', cursive;
+      }
     </style>
     
     
@@ -57,6 +62,7 @@
     <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
     <script type="text/javascript" src="jquery.ui.map.js"></script>
     <script type="text/javascript" src="jquery.ui.map.extensions.js"></script>
+    <script type="text/javascript" src="modernizr.custom.22580.js"></script>
     <script type="text/javascript" >
       var AUTOBUSES = [101,102,103,104,105,107,108,109,110,111,112,114,115,116,117,118,119,120,121,122,123,124,125,126,127,128,129,130,131,132,133,134,135,136,138,139,140,141,142,143,145,146,147,148,149,151,152,153,154,156,157,158,159,160,161,162,163,164,165,166,167,168,169,170,171,172,173,174,175,176,177,178,179,180,181,182,183,184,185,186,187,188,189,190,191,192,193,194,195,196,197,198,199,201,202,203,204,205,206,207,208,209,210,211,212,213,215,216,217,218,219,220,222,225,226,227,228,245,300,302,303,304,305,306,311,314,315,317,318,319,326,331,338,345,365,394,401,409,410,411,414,422,426,444,460,500,501,502,503,504,507,509,510,511,512,514,516,517,519,520,521,523,525,527,700,701,702,703,704,705,706,707,708,709,710,711,712,713,714,715,716,717,718,719,720,721,722,723,724,725,727,728,729,730,731,732,733,734,735,736,738,739,740,741,742, 800,805,807,'E-2','E-4','E-6','E-8', 'L-1', 'L-2','L-3','L-4','L-5','L-6','L-7','L-8','L-9','L10','L11','L13','L14','L15','L16','L17','L18','L19'];
 
@@ -120,12 +126,11 @@
               $("#numbers").html(options).selectmenu('refresh', true);;
           });
 
-          $("#home").bind("load",function() {
-            alert("total Type") ;
-           });
-
           $('#home').on('pageshow', function (event, ui) {
-            
+              alert("Ptaszek");
+              
+              loadData();
+              location.reload(true);
           });
  
 
@@ -140,6 +145,41 @@
               location.reload(true);
             });
           });
+
+          $("#notesForm").submit(function(event) {
+            event.preventDefault();
+
+            var $form = $( this ),
+            note = $form.find( 'textarea[name="note"]' ).val();
+            // url = $form.attr( 'action' );
+
+            if (note.length == 0) {
+              return false;
+            }
+
+            // $.post( '/notes/create', { "note" : {"content" : note} });
+
+            $.ajax({
+                url: '/notes/create', //sumbits it to the given url of the form
+                type: 'POST' ,
+                data: { "note" : {"content" : note }} ,
+            }).success(function(json){
+              // loadData();
+              // location.reload(true);
+            });
+            
+            
+          });
+
+          $("<div class='ui-loader ui-overlay-shadow ui-body-e ui-corner-all'>" +
+              "<h3>Dziękujemy za uwagi!</h3>" +
+            "</div>").css({ "display": "block", "opacity": 0.96, "left": 10, "right": 10, "top": $(window).scrollTop() + 100 })
+          .appendTo( $.mobile.pageContainer )
+          .delay( 1500 )
+          .fadeOut( 400, function(){
+            $(this).remove();
+          });
+
         });
 
         function loadData() {
@@ -276,9 +316,9 @@
       </div>
 
       <div data-role="content">
-        <form action="/notes/create" method="post" data-ajax="false">
+        <form id="notesForm" >
             <label for="textarea-1">Aplikacja Antykanar jest w wersji beta! Czekamy na uwagi:</label>
-            <textarea cols="40" rows="30" name="note[content]" id="textarea-1"></textarea>
+            <textarea cols="40" rows="30" name="note" id="textarea-1" required></textarea>
             <input type="submit" value="Wyślij" >
         </form>
       </div><!-- /content -->
