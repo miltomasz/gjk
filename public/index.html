@@ -7,7 +7,6 @@
 
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
     <link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.css" />
-    <link href='http://fonts.googleapis.com/css?family=Love+Ya+Like+A+Sister' rel='stylesheet' type='text/css'>
     <style type="text/css">
       .show-hide {
         display:none;
@@ -15,7 +14,7 @@
 
       .item {
           margin: 0px 2px 2px 2px;
-          padding: 5px;
+          padding: 0px;
       }
 
       .rounded {
@@ -50,9 +49,6 @@
           margin: -2px 2px 2px 2px;
       }
 
-      h2 {
-        font-family: 'Love Ya Like A Sister', cursive;
-      }
     </style>
     
     
@@ -127,10 +123,8 @@
           });
 
           $('#home').on('pageshow', function (event, ui) {
-              alert("Ptaszek");
-              
-              loadData();
-              location.reload(true);
+              // loadData();
+              // location.reload(true);
           });
  
 
@@ -140,9 +134,10 @@
             var number = form.find('select[name="numbers"]').val();
 
             $.post('/events', { "event" : { "transport_type" : transportType, "lat" : lat, "lng" : lng, "line_number": number }}, function(json) {
-
+              
               loadData();
               location.reload(true);
+              showMessage('Kontrola została zgłoszona!');
             });
           });
 
@@ -162,29 +157,21 @@
             $.ajax({
                 url: '/notes/create', //sumbits it to the given url of the form
                 type: 'POST' ,
-                data: { "note" : {"content" : note }} ,
+                data: { "note" : {"content" : note }}
             }).success(function(json){
-              // loadData();
-              // location.reload(true);
+              loadData();
+              location.reload(true);
+              showMessage('Dziekujemy za uwagi!');
             });
-            
-            
-          });
-
-          $("<div class='ui-loader ui-overlay-shadow ui-body-e ui-corner-all'>" +
-              "<h3>Dziękujemy za uwagi!</h3>" +
-            "</div>").css({ "display": "block", "opacity": 0.96, "left": 10, "right": 10, "top": $(window).scrollTop() + 100 })
-          .appendTo( $.mobile.pageContainer )
-          .delay( 1500 )
-          .fadeOut( 400, function(){
-            $(this).remove();
           });
 
         });
 
         function loadData() {
+          // start loading
+          $.mobile.loading( 'show' );
+          
           $('#map_canvas').gmap().bind('init', function(evt, map) {
-
             $('#map_canvas').gmap('getCurrentPosition', function(position, status) {
               if ( status === 'OK' ) {
                 lat = position.coords.latitude;
@@ -214,7 +201,26 @@
                     });
                 });
               }
+              
+              // stop loading
+              $.mobile.loading( 'hide' );
+
+              
             }); 
+
+            
+          });
+          
+        }
+
+        function showMessage(text) {
+          $("<div class='ui-loader ui-overlay-shadow ui-body-e ui-corner-all'>" +
+              "<h3>" + text + "</h3>" +
+            "</div>").css({ "display": "block", "opacity": 0.96, "left": 10, "right": 10, "top": $(window).scrollTop() + 100})
+          .appendTo( $.mobile.pageContainer )
+          .delay( 1500 )
+          .fadeOut( 400, function(){
+            $(this).remove();
           });
         }
 
@@ -273,14 +279,15 @@
   <body>
     <div data-role="page" id="home" style="width:100%; height:100%;" >
 
-      <div data-role="header">
+      <div data-role="header" data-theme="e">
           <h2>Antykanar</h2>
-          <a href="#" id="refresh_btn" data-icon="refresh" class="ui-btn-left" data-iconpos="notext"></a>
+          <a href="#" id="refresh_btn" data-icon="refresh" class="ui-btn-left show-page-loading-msg" data-iconpos="notext" 
+           data-textonly="false" data-textvisible="false" data-msgtext="" data-inline="true"></a>
           <a href="#notes" id="notes_btn" data-icon="edit" class="ui-btn-right" data-iconpos="notext"></a>
       </div>
       <div data-role="content" style="width:100%; height:100%; padding: 0px;" >
           <form>
-              <fieldset data-role="collapsible" data-theme="a" data-content-theme="d">
+              <fieldset data-role="collapsible" data-theme="d" data-content-theme="d">
                   <legend>Zgłoś kontrolę</legend>
                   <label for="mean">Środek transportu:</label>
                   <select name="mean" id="mean" data-iconpos="left">
@@ -310,7 +317,7 @@
     <!-- Start of second page -->
     <div data-role="page" id="notes" style="width:100%; height:100%;" >
 
-      <div data-role="header">
+      <div data-role="header" data-theme="e">
           <h2>Antykanar</h2>
           <a href="#home" id="back_btn" data-icon="back" class="ui-btn-left" data-iconpos="notext" ></a>
       </div>
