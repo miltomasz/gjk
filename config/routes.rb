@@ -1,5 +1,10 @@
 Gjk::Application.routes.draw do
+  devise_for :gjk_users
+
+  mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
+
   post "notes/create"
+  match "/notes", to: "notes#index"
 
   root :to => "event#index"
   resources :events, except: [:new, :edit]

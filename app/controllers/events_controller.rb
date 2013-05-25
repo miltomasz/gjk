@@ -5,8 +5,6 @@ class EventsController < ApplicationController
     lat = params[:lat]
     lng = params[:lng]
 
-    puts "Params >> : #{params}"
-
     @events = Event.where("created_at >= :date", :date => 15.minutes.ago).within(3, :origin => [lat, lng])
 
     render json: @events

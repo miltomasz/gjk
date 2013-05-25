@@ -144,15 +144,12 @@
           $("#notesForm").submit(function(event) {
             event.preventDefault();
 
-            var $form = $( this ),
-            note = $form.find( 'textarea[name="note"]' ).val();
-            // url = $form.attr( 'action' );
+            var $form = $(this),
+            note = $form.find('textarea[name="note"]').val();
 
             if (note.length == 0) {
               return false;
             }
-
-            // $.post( '/notes/create', { "note" : {"content" : note} });
 
             $.ajax({
                 url: '/notes/create', //sumbits it to the given url of the form
@@ -161,7 +158,7 @@
             }).success(function(json){
               loadData();
               location.reload(true);
-              showMessage('Dziekujemy za uwagi!');
+              showMessage('Dziękujemy za uwagi!');
             });
           });
 
@@ -324,7 +321,7 @@
 
       <div data-role="content">
         <form id="notesForm" >
-            <label for="textarea-1">Aplikacja Antykanar jest w wersji beta! Czekamy na uwagi:</label>
+            <label for="textarea-1">Antykanar jest w wersji beta! Czekamy na uwagi:</label>
             <textarea cols="40" rows="30" name="note" id="textarea-1" required></textarea>
             <input type="submit" value="Wyślij" >
         </form>
