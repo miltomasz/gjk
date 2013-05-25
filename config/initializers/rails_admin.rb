@@ -1,7 +1,7 @@
 # RailsAdmin config file. Generated on May 24, 2013 13:00
 # See github.com/sferik/rails_admin for more informations
 
-RailsAdmin.config do |config|
+# RailsAdmin.config do |config|
 
 
   ################  Global configuration  ################
@@ -141,4 +141,4 @@ RailsAdmin.config do |config|
   #     # using `field` instead of `configure` will exclude all other fields and force the ordering
   # end
 
-end
+# end
