@@ -1,7 +1,7 @@
 Gjk::Application.routes.draw do
-  devise_for :gjk_users
+  # devise_for :gjk_users
 
-  mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
+  # mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
 
   post "notes/create"
   match "/notes", to: "notes#index"

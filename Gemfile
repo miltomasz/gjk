@@ -7,7 +7,7 @@ gem 'geokit'
 gem 'geokit-rails3'
 gem 'pg'
 gem 'newrelic_rpm', "~> 3.5.5.38"
-gem "rails_admin", "~> 0.4.8"
+# gem "rails_admin", "~> 0.4.8"
 
 group :test do
   gem 'sqlite3'
