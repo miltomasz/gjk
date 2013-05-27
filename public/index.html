@@ -274,13 +274,13 @@
     
   </head>
   <body>
-    <div data-role="page" id="home" style="width:100%; height:100%;" data-url="/">
+    <div data-role="page" id="home" style="width:100%; height:100%;" data-url="/index.html">
 
       <div data-role="header" data-theme="e">
           <h2>Antykanar</h2>
           <a href="#" id="refresh_btn" data-icon="refresh" class="ui-btn-left show-page-loading-msg" data-iconpos="notext" 
            data-textonly="false" data-textvisible="false" data-msgtext="" data-inline="true"></a>
-          <a href="#notes" id="notes_btn" data-icon="edit" class="ui-btn-right" data-iconpos="notext"></a>
+          <a href="index2.html" id="notes_btn" data-icon="edit" class="ui-btn-right" data-iconpos="notext" data-ajax="false"></a>
       </div>
       <div data-role="content" style="width:100%; height:100%; padding: 0px;" >
           <form>
@@ -311,22 +311,5 @@
       </div>
     </div>
 
-    <!-- Start of second page -->
-    <div data-role="page" id="notes" style="width:100%; height:100%;" >
-
-      <div data-role="header" data-theme="e">
-          <h2>Antykanar</h2>
-          <a href="#home" id="back_btn" data-icon="back" class="ui-btn-left" data-iconpos="notext" ></a>
-      </div>
-
-      <div data-role="content">
-        <form id="notesForm" >
-            <label for="textarea-1">Antykanar jest w wersji beta! Czekamy na uwagi:</label>
-            <textarea cols="40" rows="30" name="note" id="textarea-1" required></textarea>
-            <input type="submit" value="Wyślij" >
-        </form>
-      </div><!-- /content -->
-
-    </div><!-- /page -->
   </body>
 </html>

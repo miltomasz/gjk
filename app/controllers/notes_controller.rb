@@ -4,6 +4,7 @@ class NotesController < ApplicationController
 
     if @note.save
       redirect_to root_path
+      # render :nothing => true
     end
   end
 
