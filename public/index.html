@@ -122,12 +122,6 @@
               $("#numbers").html(options).selectmenu('refresh', true);;
           });
 
-          $('#home').on('pageshow', function (event, ui) {
-              // loadData();
-              // location.reload(true);
-          });
- 
-
           $("#add-inspection").click(function() {
             var form = $(this).closest("form");
             var transportType = form.find('select[name="mean"]').val();
@@ -270,11 +264,13 @@
             return 'SKM';
           }
         }
+
+
     </script>
     
   </head>
   <body>
-    <div data-role="page" id="home" style="width:100%; height:100%;" data-url="/index.html">
+    <div data-role="page" id="home" style="width:100%; height:100%;" >
 
       <div data-role="header" data-theme="e">
           <h2>Antykanar</h2>

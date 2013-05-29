@@ -62,8 +62,6 @@
           $("#notesForm").submit(function(event) {
             event.preventDefault();
 
-            alert("Hey!");
-
             var $form = $(this),
             note = $form.find('textarea[name="note"]').val();
 
@@ -76,14 +74,16 @@
                 type: 'POST' ,
                 data: { "note" : {"content" : note }}
             }).success(function(json){
-              // loadData();
-              // location.reload(true);
-              // showMessage('Dziękujemy za uwagi!');
-              window.location.href = "/index.html";
+              window.location.href = "/";
             });
           });
 
+          // $("#back_btn").click(function() {
+          //     window.location.href = "/";
+          // });
         });
+
+      
     </script>
     
   </head>
@@ -94,7 +94,7 @@
 
       <div data-role="header" data-theme="e">
           <h2>Antykanar</h2>
-          <a href="#home" id="back_btn" data-icon="back" class="ui-btn-left" data-iconpos="notext" ></a>
+          <a href="index.html" id="back_btn" data-icon="back" class="ui-btn-left" data-iconpos="notext" data-ajax="false"></a>
       </div>
 
       <div data-role="content">
