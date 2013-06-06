@@ -4,7 +4,7 @@ Gjk::Application.routes.draw do
   # mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
 
   post "notes/create"
-  match "/notes", to: "notes#index"
+  match "/notes/all", to: "notes#index"
 
   root :to => "event#index"
   resources :events, except: [:new, :edit]
