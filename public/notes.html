@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" /> -->
+
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.css" />
+    <style type="text/css">
+      .show-hide {
+        display:none;
+      }
+
+      .item {
+          margin: 0px 2px 2px 2px;
+          padding: 0px;
+      }
+
+      .rounded {
+          border-radius: 8px 8px 8px 8px;
+      }
+
+      .dark {
+          background: none repeat scroll 0 0 #2A3333;
+      }
+
+      .ui-collapsible-heading {
+        display: block;
+        font-size: 16px;
+        /*margin: 0 -15px;*/
+        padding: 2px;
+        position: relative;
+      }
+
+      .ui-collapsible-content {
+        background-image: none;
+       /* border-left-width: 0;
+        border-right-width: 0;*/
+        border-top: 0 none;
+        /*display: block;*/
+        margin: -2px 2px 2px 2px;
+        padding: 10px 15px;
+      }
+
+      .ui-collapsible-inset .ui-collapsible-content {
+          border-left-width: 1px;
+          border-right-width: 1px;
+          margin: -2px 2px 2px 2px;
+      }
+
+    </style>
+    
+    
+    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.js"></script>
+    <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+    <script type="text/javascript" >
+      function dateToYMD(date) {
+          var d = date.getDate();
+          var m = date.getMonth() + 1;
+          var y = date.getFullYear();
+
+          return '' + y + '-' + (m <= 9 ? '0' + m : m) + '-' + (d <= 9 ? '0' + d : d);
+      }
+
+      function timeToHMS(date) {
+        var h = date.getHours();
+        var m = date.getMinutes();
+        var s = date.getSeconds();
+
+        return '' + h + ':' + (m <= 9 ? '0' + m : m) + ':' + (s <= 9 ? '0' + s : s);
+      }
+
+      $(function() {
+        $.getJSON("/notes/all", function(json) {
+            var liElements = '';
+            $.each(json, function(i, event) {
+              liElements += '<li class="ui-li ui-li-static ui-btn-up-c">[Data: ' + dateToYMD(new Date(Date.parse(json[i].note.created_at))) + ' ' + timeToHMS(new Date(Date.parse(json[i].note.created_at))) +
+              '] ' + json[i].note.content + '</li>';
+            });
+            $("#notes_list").append(liElements);
+        });
+
+
+      });
+
+      
+    </script>
+    
+  </head>
+  <body>
+    
+    <!-- Start of second page -->
+    <div data-role="page" id="notes" style="width:100%; height:100%;" >
+
+      <div data-role="header" data-theme="e">
+          <h2>Antykanar</h2>
+      </div>
+
+      <div data-role="content">
+        <ol id="notes_list" data-role="listview"></ol>
+      </div><!-- /content -->
+
+    </div><!-- /page -->
+  </body>
+</html>
