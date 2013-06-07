@@ -152,9 +152,15 @@
             }).success(function(json){
               loadData();
               location.reload(true);
-              showMessage('Dziękujemy za uwagi!');
             });
           });
+
+          if ($.urlParam("showMessage")) {
+            if ($.urlParam("showMessage") == 'note') {
+              showMessage("Dziękujemy za uwagi!");
+              window.location.replace("/");
+            }
+          }
 
         });
 
@@ -195,13 +201,17 @@
               
               // stop loading
               $.mobile.loading( 'hide' );
-
-              
             }); 
-
-            
           });
-          
+
+        }
+
+        $.urlParam = function(name){
+            var results = new RegExp('[\\?&amp;]' + name + '=([^&amp;#]*)').exec(window.location.href);
+            if (results == null) {
+              return 0;
+            }
+            return results[1];
         }
 
         function showMessage(text) {
@@ -210,7 +220,7 @@
             "</div>").css({ "display": "block", "opacity": 0.96, "left": 10, "right": 10, "top": $(window).scrollTop() + 100})
           .appendTo( $.mobile.pageContainer )
           .delay( 1500 )
-          .fadeOut( 400, function(){
+          .fadeOut( 1500, function(){
             $(this).remove();
           });
         }
