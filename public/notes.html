@@ -51,41 +51,26 @@
 
     </style>
     
-    
     <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
     <script src="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.js"></script>
     <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+    <script src="assets/javascripts/src/antykanar.js"></script>
     <script type="text/javascript" >
-      function dateToYMD(date) {
-          var d = date.getDate();
-          var m = date.getMonth() + 1;
-          var y = date.getFullYear();
-
-          return '' + y + '-' + (m <= 9 ? '0' + m : m) + '-' + (d <= 9 ? '0' + d : d);
-      }
-
-      function timeToHMS(date) {
-        var h = date.getHours();
-        var m = date.getMinutes();
-        var s = date.getSeconds();
-
-        return '' + h + ':' + (m <= 9 ? '0' + m : m) + ':' + (s <= 9 ? '0' + s : s);
-      }
-
       $(function() {
         $.getJSON("/notes/all", function(json) {
             var liElements = '';
+
             $.each(json, function(i, event) {
-              liElements += '<li class="ui-li ui-li-static ui-btn-up-c">[Data: ' + dateToYMD(new Date(Date.parse(json[i].note.created_at))) + ' ' + timeToHMS(new Date(Date.parse(json[i].note.created_at))) +
-              '] ' + json[i].note.content + '</li>';
+              var dateBuilder = new DateBuilder(json[i].note.created_at);
+              var ymd = dateBuilder.toYMD();
+              var hms = dateBuilder.toHMS();
+
+              liElements += '<li class="ui-li ui-li-static ui-btn-up-c">[Data: ' + ymd + ' ' + hms + '] ' + json[i].note.content + '</li>';
             });
+
             $("#notes_list").append(liElements);
         });
-
-
       });
-
-      
     </script>
     
   </head>
