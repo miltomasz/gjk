@@ -2,8 +2,9 @@ describe('Means of transport mapper', function() {
   var trasportMapper = new TransportMapper();
 
   describe('maps to correct file extension', function() {
-    it('bus type to bus.png', function() {
+    it('bus type & night bus to bus.png', function() {
       expect(trasportMapper.getFileExt('bus')).toEqual("bus.png");
+      expect(trasportMapper.getFileExt('night_bus')).toEqual("bus.png");
     });
 
     it('tram type to tram.png', function() {

@@ -179,18 +179,19 @@
 
                 $.getJSON("/events?lat=" + lat + "&lng=" + lng, function(json) {
                     $.each(json, function(i, event) {
-                      var imageType = selectImage(json[i].event.transport_type);
+                      var imageType = new TransportMapper().getFileExt(json[i].event.transport_type);
 
                       $('#map_canvas').gmap('addMarker', { 
                         'position': new google.maps.LatLng(json[i].event.lat, json[i].event.lng), 
                         'bounds': true,
                         'icon': 'images/' + imageType
                       }).click(function() {
+                        var transportName = new TransportMapper().convert(json[i].event.transport_type);
+                        var lineNumber = json[i].event.line_number;
                         var date = new DateBuilder(json[i].event.created_at);
-                        
-                        var contentString = '<font size=\'2\'>Kontrola biletów:</font></br>' +
-                                            ''+ convertTransportMean(json[i].event.transport_type) + 
-                                            ', linia nr ' + json[i].event.line_number + '</br>' +
+
+                        var contentString = '<font size=\'2\'>Kontrola biletów:</font></br>' + transportName + 
+                                            ', linia nr ' + lineNumber + '</br>' +
                                             'Godz. <b>' + date.toHMS() + '</b>';
 
                         $('#map_canvas').gmap('openInfoWindow', { 'content': contentString }, this);
@@ -225,41 +226,6 @@
             $(this).remove();
           });
         }
-
-        function selectImage(transportType) {
-          if (transportType == 'bus' || transportType == 'night_bus') {
-            return 'bus.png';
-          }
-
-          if (transportType == 'tram') {
-            return 'tram.png';
-          }
-
-          return 'train.png';
-        }
-
-        function convertTransportMean(transportType) {
-          if (transportType == 'bus') {
-            return 'Autobus';
-          }
-
-          if (transportType == 'tram') {
-            return 'Tramwaj';
-          }
-
-          if (transportType == 'night_bus') {
-            return 'Autobus nocny';
-          }
-
-          if (transportType == 'wkd') {
-            return 'WKD';
-          }
-
-          if (transportType == 'skm') {
-            return 'SKM';
-          }
-        }
-
 
     </script>
     
