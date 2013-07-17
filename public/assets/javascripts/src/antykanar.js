@@ -46,15 +46,7 @@ function OptionsCreator(transportNumbers) {
   this.changeTo = function(transportType) {
     var meansAndNumbers = [{'bus':AUTOBUSES}, {'tram':TRAMS}, {'night_bus':NIGHT_AUTOBUSES}, {'wkd':WKD}, {'skm':SKM}];
 
-    for (var i = 0; i < meansAndNumbers.length; i++) {
-      var object = meansAndNumbers[i];
-
-      for(var property in object) {
-        if (transportType == property) {
-          this.transportNumbers = object[property];
-        }
-      }
-    }
+    this.transportNumbers = getPropertyValue(transportType, meansAndNumbers);
   }
 };
 
@@ -78,16 +70,19 @@ function TransportMapper() {
   };
 
   this.convert = function(param) {
-    for (var i = 0; i < NAMES_VALUES.length; i++) {
-      var object = NAMES_VALUES[i];
+    return getPropertyValue(param, NAMES_VALUES);
+  };
+};
 
-      for(var property in object) {
-        if (param == property) {
-          return object[property];
-        }
+function getPropertyValue(propertyName, array) {
+  for (var i = 0; i < array.length; i++) {
+    var object = array[i];
+
+    for(var property in object) {
+      if (propertyName == property) {
+        return object[property];
       }
     }
-
-    return undefined;
-  };
+  }
+  return undefined;
 };

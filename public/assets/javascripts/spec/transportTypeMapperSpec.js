@@ -21,7 +21,7 @@ describe('Means of transport mapper', function() {
   });
 
   describe('converts shortcuts to full names', function() {
-    it('bus to Autobus', function() {
+    it('should convert bus to Autobus', function() {
       expect(trasportMapper.convert("bus")).toEqual("Autobus");
     });
 

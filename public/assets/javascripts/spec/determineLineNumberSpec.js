@@ -47,8 +47,9 @@ describe('Options creator', function() {
       spyOn(creator, 'options').andReturn(skmOptions);
 
       creator.changeTo('skm');
+      creator.options();
 
-      expect(creator.changeTo).toHaveBeenCalled();
+      expect(creator.options).toHaveBeenCalled();
       expect(creator.options()).toEqual(skmOptions);
     }); 
   });
