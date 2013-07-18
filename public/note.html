@@ -78,19 +78,6 @@
             });
           });
         });
-
-      function showMessage(text) {
-          $("<div class='ui-loader ui-overlay-shadow ui-body-e ui-corner-all'>" +
-              "<h3>" + text + "</h3>" +
-            "</div>").css({ "display": "block", "opacity": 0.96, "left": 10, "right": 10, "top": $(window).scrollTop() + 100})
-          .appendTo( $.mobile.pageContainer )
-          .delay( 1500 )
-          .fadeOut( 1500, function(){
-            $(this).remove();
-          });
-        }
-
-      
     </script>
     
   </head>

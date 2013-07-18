@@ -65,11 +65,16 @@
       var lat;
       var lng;
       var markers = [];
+      var optionsCreator = new OptionsCreator(AUTOBUSES);
 
       $(function() {
           loadData();
 
-          var optionsCreator = new OptionsCreator(AUTOBUSES);
+          if (MessagePresenter.hasParam('showMessage')) {
+            if (MessagePresenter.hasParam('showMessage') == 'note') {
+              MessagePresenter.showMessage("Dziękujemy za uwagi!");
+            }
+          }
 
           $("#numbers").html(optionsCreator.options()).selectmenu('refresh', true);
 
@@ -98,33 +103,6 @@
               showMessage('Kontrola została zgłoszona!');
             });
           });
-
-          $("#notesForm").submit(function(event) {
-            event.preventDefault();
-
-            var $form = $(this),
-            note = $form.find('textarea[name="note"]').val();
-
-            if (note.length == 0) {
-              return false;
-            }
-
-            $.ajax({ 
-                url: '/notes/create', 
-                type: 'POST', 
-                data: { "note" : {"content" : note }}
-            }).success(function(json){
-              loadData();
-              location.reload(true);
-            });
-          });
-
-          if ($.urlParam("showMessage")) {
-            if ($.urlParam("showMessage") == 'note') {
-              showMessage("Dziękujemy za uwagi!");
-              window.location.replace("/");
-            }
-          }
         });
 
         function loadData() {
@@ -137,7 +115,7 @@
                 lat = position.coords.latitude;
                 lng = position.coords.longitude;
 
-                var clientPosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+                var clientPosition = new google.maps.LatLng(lat, lng);
                 $('#map_canvas').gmap('addMarker', {'position': clientPosition, 'bounds': true});
 
                 $.getJSON("/events?lat=" + lat + "&lng=" + lng, function(json) {
@@ -170,26 +148,6 @@
           });
 
         }
-
-        $.urlParam = function(name){
-            var results = new RegExp('[\\?&amp;]' + name + '=([^&amp;#]*)').exec(window.location.href);
-            if (results == null) {
-              return 0;
-            }
-            return results[1];
-        }
-
-        function showMessage(text) {
-          $("<div class='ui-loader ui-overlay-shadow ui-body-e ui-corner-all'>" +
-              "<h3>" + text + "</h3>" +
-            "</div>").css({ "display": "block", "opacity": 0.96, "left": 10, "right": 10, "top": $(window).scrollTop() + 100})
-          .appendTo( $.mobile.pageContainer )
-          .delay( 1500 )
-          .fadeOut( 1500, function(){
-            $(this).remove();
-          });
-        }
-
     </script>
     
   </head>

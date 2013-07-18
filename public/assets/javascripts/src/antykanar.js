@@ -74,6 +74,27 @@ function TransportMapper() {
   };
 };
 
+var MessagePresenter = {
+  showMessage : function(text) {
+    $("<div class='ui-loader ui-overlay-shadow ui-body-e ui-corner-all'>" +
+        "<h3>" + text + "</h3>" +
+      "</div>").css({ "display": "block", "opacity": 0.96, "left": 10, "right": 10, "top": $(window).scrollTop() + 100})
+    .appendTo( $.mobile.pageContainer )
+    .delay( 3000 )
+    .fadeOut( 1500, function(){
+      $(this).remove();
+    });
+  },
+
+  hasParam : function(paramName) {
+    var results = new RegExp('[\\?&amp;]' + paramName + '=([^&amp;#]*)').exec(window.location.href);
+    if (results == null) {
+      return 0;
+    }
+    return results[1];
+  }
+};
+
 function getPropertyValue(propertyName, array) {
   for (var i = 0; i < array.length; i++) {
     var object = array[i];
