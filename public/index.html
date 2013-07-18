@@ -99,8 +99,8 @@
             $.post('/events', { "event" : { "transport_type" : transportType, "lat" : lat, "lng" : lng, "line_number": number }}, function(json) {
               
               loadData();
-              location.reload(true);
-              showMessage('Kontrola została zgłoszona!');
+              window.location = "/";
+              MessagePresenter.showMessage("Kontrola została zgłoszona!");
             });
           });
         });

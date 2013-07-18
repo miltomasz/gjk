@@ -51,7 +51,7 @@ function OptionsCreator(transportNumbers) {
 };
 
 function TransportMapper() {
-  var FILE_NAMES = ['bus', 'tram', 'night_bus', 'train'];
+  var FILE_NAMES = ['bus', 'tram', 'night_bus', 'skm', 'wkd'];
   var NAMES_VALUES = [{'bus':'Autobus'}, {'tram':'Tramwaj'}, 
                       {'night_bus':'Autobus nocny'}, {'wkd':'WKD'}, {'skm':'SKM'}];
 
@@ -60,6 +60,10 @@ function TransportMapper() {
       if (param == FILE_NAMES[i]) {
         if (param == 'night_bus') {
           return 'bus.png';
+        }
+
+        if (param == 'skm' || param == 'wkd') {
+          return 'train.png';
         }
 
         return param + '.png';
