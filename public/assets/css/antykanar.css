@@ -1,0 +1,40 @@
+.show-hide {
+  display:none;
+}
+
+.item {
+    margin: 0px 2px 2px 2px;
+    padding: 0px;
+}
+
+.rounded {
+    border-radius: 8px 8px 8px 8px;
+}
+
+.dark {
+    background: none repeat scroll 0 0 #2A3333;
+}
+
+.ui-collapsible-heading {
+  display: block;
+  font-size: 16px;
+  /*margin: 0 -15px;*/
+  padding: 2px;
+  position: relative;
+}
+
+.ui-collapsible-content {
+  background-image: none;
+ /* border-left-width: 0;
+  border-right-width: 0;*/
+  border-top: 0 none;
+  /*display: block;*/
+  margin: -2px 2px 2px 2px;
+  padding: 10px 15px;
+}
+
+.ui-collapsible-inset .ui-collapsible-content {
+    border-left-width: 1px;
+    border-right-width: 1px;
+    margin: -2px 2px 2px 2px;
+}

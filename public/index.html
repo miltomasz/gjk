@@ -7,51 +7,8 @@
 
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
     <link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.css" />
-    <style type="text/css">
-      .show-hide {
-        display:none;
-      }
-
-      .item {
-          margin: 0px 2px 2px 2px;
-          padding: 0px;
-      }
-
-      .rounded {
-          border-radius: 8px 8px 8px 8px;
-      }
-
-      .dark {
-          background: none repeat scroll 0 0 #2A3333;
-      }
-
-      .ui-collapsible-heading {
-        display: block;
-        font-size: 16px;
-        /*margin: 0 -15px;*/
-        padding: 2px;
-        position: relative;
-      }
-
-      .ui-collapsible-content {
-        background-image: none;
-       /* border-left-width: 0;
-        border-right-width: 0;*/
-        border-top: 0 none;
-        /*display: block;*/
-        margin: -2px 2px 2px 2px;
-        padding: 10px 15px;
-      }
-
-      .ui-collapsible-inset .ui-collapsible-content {
-          border-left-width: 1px;
-          border-right-width: 1px;
-          margin: -2px 2px 2px 2px;
-      }
-
-    </style>
-    
-    
+    <link rel="stylesheet" type="text/css" href="assets/css/antykanar.css" />
+      
     <script src="http://maps.google.com/maps/api/js?sensor=false"></script>
     <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
     <script src="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.js"></script>
@@ -63,7 +20,6 @@
     <script type="text/javascript" >
       var lat;
       var lng;
-      var markers = [];
       var optionsCreator = new OptionsCreator(AUTOBUSES);
 
       $(function() {
@@ -163,6 +119,7 @@
           <form>
               <fieldset data-role="collapsible" data-theme="d" data-content-theme="d">
                   <legend>Zgłoś kontrolę</legend>
+
                   <label for="mean">Środek transportu:</label>
                   <select name="mean" id="mean" data-iconpos="left">
                       <option value="bus">Autobus</option>
@@ -171,15 +128,11 @@
                       <option value="skm">SKM</option>
                       <option value="wkd">WKD</option>
                   </select>
-                  <!-- <div id="numbers-div" class="show-hide" > -->
-                    <label for="numbers">Numer:</label>
-                    <select name="numbers" id="numbers" data-iconpos="left">
-                    </select>
-                  <!-- </div> -->
-                  <!-- <div id="add-inspection-div" class="show-hide"> -->
-                    <a href="#" id="add-inspection" data-role="button">Dodaj</a>
-                    <!-- <input type="submit" value="Dodaj" /> -->
-                  <!-- </div> -->
+
+                  <label for="numbers">Numer:</label>
+                  <select name="numbers" id="numbers" data-iconpos="left"></select>
+
+                  <a href="#" id="add-inspection" data-role="button">Dodaj</a>
               </fieldset>
           </form>
          <div class="item rounded dark">
