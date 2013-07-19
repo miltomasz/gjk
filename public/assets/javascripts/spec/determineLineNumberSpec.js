@@ -50,7 +50,7 @@ describe('Options creator', function() {
       creator.options();
 
       expect(creator.options).toHaveBeenCalled();
-      expect(creator.options()).toEqual(skmOptions);
+      expect(creator.options.toEqual(skmOptions);
     }); 
   });
 });

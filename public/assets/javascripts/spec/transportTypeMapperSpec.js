@@ -11,8 +11,8 @@ describe('Means of transport mapper', function() {
       expect(trasportMapper.getFileExt('tram')).toEqual("tram.png");
     });
 
-    it('train type to train.png', function() {
-      expect(trasportMapper.getFileExt('train')).toEqual("train.png");
+    it('skm type to train.png', function() {
+      expect(trasportMapper.getFileExt('skm')).toEqual("train.png");
     });
 
     it('return undefined when transport type not found', function() {
