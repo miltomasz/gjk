@@ -22,7 +22,7 @@ describe('Location dispatcher', function() {
 
       var street = lm.street();
       
-      expect(geoLocator.locate).not.toHaveBeenCalledWith();
+      expect(geoLocator.locate).not.toHaveBeenCalled();
       expect(street).toEqual("Freta 44");
     });
   });
@@ -33,7 +33,7 @@ describe('Location dispatcher', function() {
 
       var country = lm.country();
       
-      expect(geoLocator.locate).not.toHaveBeenCalledWith();
+      expect(geoLocator.locate).not.toHaveBeenCalled();
       expect(country).toEqual("Polska");
     });
   });
