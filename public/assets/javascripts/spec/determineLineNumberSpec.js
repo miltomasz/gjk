@@ -47,10 +47,10 @@ describe('Options creator', function() {
       spyOn(creator, 'options').andReturn(skmOptions);
 
       creator.changeTo('skm');
-      creator.options();
+      var options = creator.options();
 
       expect(creator.options).toHaveBeenCalled();
-      expect(creator.options.toEqual(skmOptions);
+      expect(options).toEqual(skmOptions);
     }); 
   });
 });

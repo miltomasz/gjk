@@ -24,12 +24,64 @@ function DateBuilder(date) {
   };  
 };
 
+function GeoLocator() {
+  this.locate = function(latitude, longitude) {
+    var request = new XMLHttpRequest();
+
+    var method = 'GET';
+    var url = 'http://maps.googleapis.com/maps/api/geocode/json?latlng=' + latitude + ',' + longitude + '&sensor=true';
+    var async = true;
+    var addres;
+
+    request.open(method, url, async);
+
+    request.onreadystatechange = function(){
+      if(request.readyState == 4 && request.status == 200){
+        var data = JSON.parse(request.responseText);
+        address = data.results[0];
+      }
+    };
+
+    request.send();
+
+    return address.formatted_address;
+  };
+};
+
+function LocationManager(lat, lng, geoLocator) {
+  this.lat = lat;
+  this.lng = lng;
+  this.geoLocator = geoLocator;
+  this.address = null;
+
+  this.initializeAddress = function() {
+     if (this.address == null) {
+       this.address = this.geoLocator.locate(this.lat, this.lng);
+     }
+  };
+
+  this.city = function() {
+    this.initializeAddress();
+    return this.address[1];
+  };
+
+  this.street = function() {
+    this.initializeAddress();
+    return this.address[0];
+  };
+
+  this.country = function() {
+    this.initializeAddress();
+    return this.address[2];
+  };
+};
+
 function OptionsCreator(transportNumbers) {
   this.transportNumbers = transportNumbers;
 
   this.getTransportNumbers = function() {
     return this.transportNumbers;
-  }
+  };
 
   this.options = function() {
     return this.createFor(this.transportNumbers);
