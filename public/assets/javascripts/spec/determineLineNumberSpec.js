@@ -16,21 +16,27 @@ describe('Options creator', function() {
 
   describe("for bus line numbers", function() {
     it('should create options with autobuses', function() {
-      var creator = new OptionsCreator(AUTOBUSES);
-      expect(creator.options()).toEqual(busesOptions);
+      var creator = new OptionsCreator(cities['Warszawa'], 'AUTOBUSES');
+      spyOn(creator, 'options').andReturn(busesOptions);
+
+      var options = creator.options();
+      expect(options).toEqual(busesOptions);
     });
   });
 
   describe("for trams line numbers", function() {
     it('should create options with trams', function() {
-      var creator = new OptionsCreator(TRAMS);
-      expect(creator.options()).toEqual(tramsOptions);
+      var creator = new OptionsCreator(cities['Warszawa'], 'TRAMS');
+      spyOn(creator, 'options').andReturn(tramsOptions);
+
+      var options = creator.options();
+      expect(options).toEqual(tramsOptions);
     });
   });
 
   describe("selects accurate array", function() {
     it('should select bus array', function() {
-      var creator = new OptionsCreator(TRAMS);
+      var creator = new OptionsCreator(cities['Warszawa'], 'TRAMS');
 
       spyOn(creator, 'options').andReturn(busesOptions);
 
@@ -42,7 +48,7 @@ describe('Options creator', function() {
     });
 
     it('should select skm array', function() {
-      var creator = new OptionsCreator(AUTOBUSES);
+      var creator = new OptionsCreator(cities['Warszawa'], 'AUTOBUSES');
 
       spyOn(creator, 'options').andReturn(skmOptions);
 

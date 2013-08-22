@@ -7,7 +7,7 @@ describe('Location dispatcher', function() {
 
   describe('City location', function() {
     it('should return name of the city', function() {
-      spyOn(geoLocator, "locate").andReturn(["Freta 44", "Warszawa", "Polska"]);
+      spyOn(geoLocator, "locate").andReturn("Freta 44, Warszawa, Polska");
 
       var city = lm.city();
       
@@ -18,7 +18,7 @@ describe('Location dispatcher', function() {
 
   describe('Street', function() {
     it('should return name of the street address number', function() {
-      spyOn(geoLocator, "locate").andReturn(["Freta 44", "Warszawa", "Polska"]);
+      spyOn(geoLocator, "locate").andReturn("Freta 44, Warszawa, Polska");
 
       var street = lm.street();
       
@@ -29,7 +29,7 @@ describe('Location dispatcher', function() {
 
   describe('Country', function() {
     it('should return name of the country', function() {
-      spyOn(geoLocator, "locate").andReturn(["Freta 44", "Warszawa", "Polska"]);
+      spyOn(geoLocator, "locate").andReturn("Freta 44, Warszawa, Polska");
 
       var country = lm.country();
       

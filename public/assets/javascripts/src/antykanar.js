@@ -24,13 +24,29 @@ function DateBuilder(date) {
   };  
 };
 
+function CitySelector(name) {
+  this.name = name.trim();
+
+  this.city = function() {
+    if (this.name == 'Warszawa') {
+      return 'Warszawa';
+    }
+
+    if (this.name == 'Kraków') {
+      return 'Krakow';
+    }
+
+    return undefined;
+  };
+};
+
 function GeoLocator() {
   this.locate = function(latitude, longitude) {
     var request = new XMLHttpRequest();
 
     var method = 'GET';
     var url = 'http://maps.googleapis.com/maps/api/geocode/json?latlng=' + latitude + ',' + longitude + '&sensor=true';
-    var async = true;
+    var async = false;
     var addres;
 
     request.open(method, url, async);
@@ -39,6 +55,7 @@ function GeoLocator() {
       if(request.readyState == 4 && request.status == 200){
         var data = JSON.parse(request.responseText);
         address = data.results[0];
+        console.log("--" + address.formatted_address)
       }
     };
 
@@ -56,38 +73,76 @@ function LocationManager(lat, lng, geoLocator) {
 
   this.initializeAddress = function() {
      if (this.address == null) {
-       this.address = this.geoLocator.locate(this.lat, this.lng);
+       var addressString = this.geoLocator.locate(this.lat, this.lng);
+       this.address = addressString.split(",");
      }
   };
 
   this.city = function() {
     this.initializeAddress();
-    return this.address[1];
+    return this.address[1].trim();
   };
 
   this.street = function() {
     this.initializeAddress();
-    return this.address[0];
+    return this.address[0].trim();
   };
 
   this.country = function() {
     this.initializeAddress();
-    return this.address[2];
+    return this.address[2].trim();
   };
 };
 
-function OptionsCreator(transportNumbers) {
-  this.transportNumbers = transportNumbers;
+function MeansOptionsCreator(city) {
+  this.city = city;
+
+  this.options = function() {
+    if (this.city == 'Warszawa') {
+      return this.createFor(cities['Warszawa']);
+    }
+
+    if (this.city == 'Krakow') {
+      return this.createFor(cities['Krakow']);
+    }
+  };
+
+  this.createFor = function(meansOfTransport) {
+    var keys = getKeys(meansOfTransport);
+
+    console.log("Keys: " + keys);
+
+    var options = '';
+    for(var i = 0; i < keys.length; i++) {
+        var key = keys[i];
+
+        console.log("Key: " + key)
+        var value = meansOfTransport.getName(key.toUpperCase());
+        
+        options += '<option value="' + key + '">' + value + '</option>';
+    }
+
+    console.log("Options: " + options);
+
+    return options;
+  }
+};
+
+function OptionsCreator(cityObject, transportType) {
+  this.cityObject = cityObject;
+  this.transportType = transportType;
 
   this.getTransportNumbers = function() {
-    return this.transportNumbers;
+    return this.cityObject[this.transportType];
   };
 
   this.options = function() {
-    return this.createFor(this.transportNumbers);
+    return this.createFor(this.transportType);
   };
 
-  this.createFor = function(transportNumbers) {
+  this.createFor = function(transportType) {
+      var transportNumbers = this.cityObject[transportType];
+
       var options = '';
       for(var i = 0; i < transportNumbers.length; i++) {
           options += '<option value="' + transportNumbers[i] + '">' + transportNumbers[i] + '</option>';
@@ -96,33 +151,22 @@ function OptionsCreator(transportNumbers) {
   };
 
   this.changeTo = function(transportType) {
-    var meansAndNumbers = [{'bus':AUTOBUSES}, {'tram':TRAMS}, {'night_bus':NIGHT_AUTOBUSES}, {'wkd':WKD}, {'skm':SKM}];
-
-    this.transportNumbers = getPropertyValue(transportType, meansAndNumbers);
+    if (transportType != null) {
+      transportType = transportType.toUpperCase();
+    }
+    this.transportType = transportType;
   }
 };
 
 function TransportMapper() {
-  var FILE_NAMES = ['bus', 'tram', 'night_bus', 'skm', 'wkd'];
-  var NAMES_VALUES = [{'bus':'Autobus'}, {'tram':'Tramwaj'}, 
-                      {'night_bus':'Autobus nocny'}, {'wkd':'WKD'}, {'skm':'SKM'}];
+  var FILE_NAMES = [{'autobuses':'bus'}, {'trams':'tram'}, 
+                      {'night_autobuses':'bus'}, {'wkd':'train'}, {'skm':'train'}, {'aglo_autobuses':'bus'}];
+  var NAMES_VALUES = [{'autobuses':'Autobus'}, {'trams':'Tramwaj'}, 
+                      {'night_autobuses':'Autobus nocny'}, {'wkd':'WKD'}, {'skm':'SKM'}, {'aglo_autobuses':'Autobus podmiejski'}];
 
   this.getFileExt = function(param) {
-    for (var i = 0; i < FILE_NAMES.length; i++) {
-      if (param == FILE_NAMES[i]) {
-        if (param == 'night_bus') {
-          return 'bus.png';
-        }
-
-        if (param == 'skm' || param == 'wkd') {
-          return 'train.png';
-        }
-
-        return param + '.png';
-      }
-    }
-
-    return undefined;
+    var value = getPropertyValue(param, FILE_NAMES);
+    return (typeof value === 'undefined') ? undefined : value.concat('.png');
   };
 
   this.convert = function(param) {
@@ -163,3 +207,31 @@ function getPropertyValue(propertyName, array) {
   }
   return undefined;
 };
+
+function getKey(index, hash) {
+  var i = 0;
+  
+  for(var property in hash) {
+    if (index == i) {
+      return property.toString();
+    }
+    i++;
+  }
+};
+
+function getKeys(hash) {
+  var keys = [];
+
+  for(var property in hash) {
+    if (!(hash[property] instanceof Function)) {
+      keys.push(property.toLowerCase());
+    }
+  }
+
+  return keys;
+};
+
+function isFunction(x) {
+  return Object.prototype.toString.call(x) == '[object Function]';
+};
+

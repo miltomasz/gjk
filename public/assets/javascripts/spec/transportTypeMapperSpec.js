@@ -2,13 +2,14 @@ describe('Means of transport mapper', function() {
   var trasportMapper = new TransportMapper();
 
   describe('maps to correct file extension', function() {
-    it('bus type & night bus to bus.png', function() {
-      expect(trasportMapper.getFileExt('bus')).toEqual("bus.png");
-      expect(trasportMapper.getFileExt('night_bus')).toEqual("bus.png");
+    it('bus type & night bus & aglo bus to bus.png', function() {
+      expect(trasportMapper.getFileExt('autobuses')).toEqual("bus.png");
+      expect(trasportMapper.getFileExt('night_autobuses')).toEqual("bus.png");
+      expect(trasportMapper.getFileExt('aglo_autobuses')).toEqual("bus.png");
     });
 
     it('tram type to tram.png', function() {
-      expect(trasportMapper.getFileExt('tram')).toEqual("tram.png");
+      expect(trasportMapper.getFileExt('trams')).toEqual("tram.png");
     });
 
     it('skm type to train.png', function() {
@@ -22,15 +23,15 @@ describe('Means of transport mapper', function() {
 
   describe('converts shortcuts to full names', function() {
     it('should convert bus to Autobus', function() {
-      expect(trasportMapper.convert("bus")).toEqual("Autobus");
+      expect(trasportMapper.convert("autobuses")).toEqual("Autobus");
     });
 
     it('tram to Tramwaj', function() {
-      expect(trasportMapper.convert("tram")).toEqual("Tramwaj");
+      expect(trasportMapper.convert("trams")).toEqual("Tramwaj");
     });
 
     it('night_bus to Autobus nocny', function() {
-      expect(trasportMapper.convert("night_bus")).toEqual("Autobus nocny");
+      expect(trasportMapper.convert("night_autobuses")).toEqual("Autobus nocny");
     });
 
     it('wkd to WKD', function() {
