@@ -15,6 +15,7 @@
     <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
     <script type="text/javascript" src="jquery.ui.map.js"></script>
     <script type="text/javascript" src="jquery.ui.map.extensions.js"></script>
+    <script type="text/javascript" src="jquery.cookie.js"></script>
     <script src="assets/javascripts/src/transportData.js"></script>
     <script src="assets/javascripts/src/antykanar.js"></script>
     <script type="text/javascript" >
@@ -75,8 +76,16 @@
                 lat =  position.coords.latitude;//52.24029195328161; //Krakow 50.03845282164371;//
                 lng =  position.coords.longitude;//20.943777918164077; //krakow 19.942721781543003;//
 
-                geoLocate(lat, lng);
-                refreshSelectBoxes();
+                if (typeof($.cookie('city')) == 'undefined') {
+                  console.log("Starting geolocation: " + lat + ", " + lng);
+                  geoLocate(lat, lng);
+                  refreshSelectBoxes();
+                }
+
+                var cityTransformed = $.cookie('city');
+
+                optionsCreator = new OptionsCreator(cities[cityTransformed], getKey(0, cities[cityTransformed]));
+                meansOptionsCreator = new MeansOptionsCreator(cityTransformed)
 
                 var clientPosition = new google.maps.LatLng(lat, lng);
                 $('#map_canvas').gmap('addMarker', {'position': clientPosition, 'bounds': true});
@@ -114,22 +123,16 @@
 
         }
 
-        function popupHtml() {
-          var content = '<font size=\'2\'>Kontrola biletów:</font>';
-          return content;
-        }
-
         function geoLocate(lat, lng) {
           var locManager = new LocationManager(lat, lng, new GeoLocator());
           var city = locManager.city();
 
-          console.log("City name: " + city);
-
           var citySelector = new CitySelector(city);
           var cityTransformed = citySelector.city();
 
-          optionsCreator = new OptionsCreator(cities[cityTransformed], getKey(0, cities[cityTransformed]));
-          meansOptionsCreator = new MeansOptionsCreator(cityTransformed)
+          $.cookie('city', cityTransformed);
+
+          console.log("Geolocated city: " + cityTransformed);
         }
 
         function refreshSelectBoxes() {
