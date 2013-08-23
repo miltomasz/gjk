@@ -24,6 +24,10 @@ describe('Means of transport mapper', function() {
       expect(trasportMapper.getFileExt('aglo_autobuses')).toEqual("bus.png");
     });
 
+    it('returns bus when night_autobuses type', function() {
+      expect(trasportMapper.getFileExt('night_autobuses')).toEqual("bus.png");
+    });
+
   });
 
   describe('converts shortcuts to full names', function() {
