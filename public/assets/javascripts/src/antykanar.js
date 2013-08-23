@@ -159,9 +159,9 @@ function OptionsCreator(cityObject, transportType) {
 };
 
 function TransportMapper() {
-  var FILE_NAMES = [{'autobuses':'bus'}, {'trams':'tram'}, 
+  var FILE_NAMES = [{'bus':'bus'}, {'autobuses':'bus'}, {'trams':'tram'}, 
                       {'night_autobuses':'bus'}, {'wkd':'train'}, {'skm':'train'}, {'aglo_autobuses':'bus'}];
-  var NAMES_VALUES = [{'autobuses':'Autobus'}, {'trams':'Tramwaj'}, 
+  var NAMES_VALUES = [{'bus':'Autobus'}, {'autobuses':'Autobus'}, {'trams':'Tramwaj'}, 
                       {'night_autobuses':'Autobus nocny'}, {'wkd':'WKD'}, {'skm':'SKM'}, {'aglo_autobuses':'Autobus podmiejski'}];
 
   this.getFileExt = function(param) {
