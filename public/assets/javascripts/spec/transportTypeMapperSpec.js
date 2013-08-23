@@ -16,9 +16,14 @@ describe('Means of transport mapper', function() {
       expect(trasportMapper.getFileExt('skm')).toEqual("train.png");
     });
 
-    it('return undefined when transport type not found', function() {
+    it('returns undefined when transport type not found', function() {
       expect(trasportMapper.getFileExt('unknown')).toEqual(undefined);
     });
+
+    it('returns bus when aglo_autobuses type', function() {
+      expect(trasportMapper.getFileExt('aglo_autobuses')).toEqual("bus.png");
+    });
+
   });
 
   describe('converts shortcuts to full names', function() {

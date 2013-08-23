@@ -85,6 +85,8 @@
                     $.each(json, function(i, event) {
                       var imageType = new TransportMapper().getFileExt(json[i].event.transport_type);
 
+                      console.log("Image type: " + imageType);
+
                       $('#map_canvas').gmap('addMarker', { 
                         'position': new google.maps.LatLng(json[i].event.lat, json[i].event.lng), 
                         'bounds': true,
