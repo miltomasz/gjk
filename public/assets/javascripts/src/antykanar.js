@@ -55,7 +55,7 @@ function GeoLocator() {
       if(request.readyState == 4 && request.status == 200){
         var data = JSON.parse(request.responseText);
         address = data.results[0];
-        console.log("--" + address.formatted_address)
+        console.log("Geolocated address: " + address.formatted_address)
       }
     };
 
@@ -80,7 +80,9 @@ function LocationManager(lat, lng, geoLocator) {
 
   this.city = function() {
     this.initializeAddress();
-    return this.address[1].trim();
+    var cityWithZipCode = this.address[1].split(" ");
+    var city = cityWithZipCode[cityWithZipCode.length-1];
+    return city.trim();
   };
 
   this.street = function() {
@@ -110,19 +112,13 @@ function MeansOptionsCreator(city) {
   this.createFor = function(meansOfTransport) {
     var keys = getKeys(meansOfTransport);
 
-    console.log("Keys: " + keys);
-
     var options = '';
     for(var i = 0; i < keys.length; i++) {
         var key = keys[i];
-
-        console.log("Key: " + key)
         var value = meansOfTransport.getName(key.toUpperCase());
         
         options += '<option value="' + key + '">' + value + '</option>';
     }
-
-    console.log("Options: " + options);
 
     return options;
   }

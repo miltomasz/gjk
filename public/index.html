@@ -79,13 +79,13 @@
                 if (typeof($.cookie('city')) == 'undefined') {
                   console.log("Starting geolocation: " + lat + ", " + lng);
                   geoLocate(lat, lng);
-                  refreshSelectBoxes();
                 }
 
                 var cityTransformed = $.cookie('city');
 
                 optionsCreator = new OptionsCreator(cities[cityTransformed], getKey(0, cities[cityTransformed]));
-                meansOptionsCreator = new MeansOptionsCreator(cityTransformed)
+                meansOptionsCreator = new MeansOptionsCreator(cityTransformed);
+                refreshSelectBoxes();
 
                 var clientPosition = new google.maps.LatLng(lat, lng);
                 $('#map_canvas').gmap('addMarker', {'position': clientPosition, 'bounds': true});
