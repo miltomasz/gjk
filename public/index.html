@@ -73,8 +73,8 @@
           $('#map_canvas').gmap().bind('init', function(evt, map) {
             $('#map_canvas').gmap('getCurrentPosition', function(position, status) {
               if ( status === 'OK' ) {
-                lat =  position.coords.latitude;//52.24029195328161; //Krakow 50.03845282164371;//
-                lng =  position.coords.longitude;//20.943777918164077; //krakow 19.942721781543003;//
+                lat =  52.24029195328161;//position.coords.latitude;//52.24029195328161; //Krakow 50.03845282164371;//
+                lng =  20.943777918164077;//position.coords.longitude;//20.943777918164077; //krakow 19.942721781543003;//
 
                 if (typeof($.cookie('city')) == 'undefined') {
                   console.log("Starting geolocation: " + lat + ", " + lng);
@@ -94,8 +94,6 @@
                     $.each(json, function(i, event) {
                       var imageType = new TransportMapper().getFileExt(json[i].event.transport_type);
 
-                      console.log("-- " + json[i].event.transport_type +", Image type: " + imageType);
-
                       $('#map_canvas').gmap('addMarker', { 
                         'position': new google.maps.LatLng(json[i].event.lat, json[i].event.lng), 
                         'bounds': true,
@@ -106,7 +104,8 @@
                         var date = new DateBuilder(json[i].event.created_at);
 
                         var contentString = '<font size=\'1\'>Kontrola biletów:</font></br>' + 
-                                            transportName + ', linia nr ' + lineNumber + ', ' +
+                                            transportName + ', linia nr ' + lineNumber + '</br>' +
+                                            'Data: ' + date.toYMD() + '</br>' +
                                             'Godz. ' + date.toHMS();
 
                         $('#map_canvas').gmap('openInfoWindow', { 'content': contentString}, this);
